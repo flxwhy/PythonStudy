@@ -36,3 +36,57 @@ L[10:20]
 L[:10:2]
 
 # [0, 2, 4, 6, 8]
+
+# 所有数，每5个取一个：
+
+L[::5]
+
+# 原样复制
+L[:]
+
+
+# tuple也是一种list，唯一区别是tuple不可变。因此，tuple也可以用切片操作，只是操作的结果仍是tuple：
+(0, 1, 2, 3, 4, 5)[:3]
+
+
+# 字符串'xxx'也可以看成是一种list，每个元素就是一个字符。因此，字符串也可以用切片操作，只是操作结果仍是字符串：
+'ABCDEFG'[:3]
+
+'ABCDEFG'[::2]
+
+# 在很多编程语言中，针对字符串提供了很多各种截取函数（例如，substring），
+# 其实目的就是对字符串切片。Python没有针对字符串的截取函数，
+# 只需要切片一个操作就可以完成，非常简单。
+
+
+# 练习
+def trims(str):
+    if str != '':
+        while str[0] == ' ' and len(str) > 1:
+            str = str[1:]
+        while str[-1:] == ' ' and len(str) > 1:
+            str = str[:-1]
+        if str == ' ':
+            str = ''
+    return str
+
+
+# 优化版 最少切片次数
+def trimsd(str):
+    lens = len(str)
+    if lens <= 0 or str == ' ' or str == '':
+        return ''
+    searchindex = 0
+    while lens > searchindex:
+        if(str[searchindex] == ' '):
+            searchindex += 1
+        else:
+            break
+    lens -= 1
+    while lens > 0:
+        if(str[lens] == ' '):
+            lens -= 1
+        else:
+            break
+    return str[searchindex:lens+1]
+trimsd('   sdsd     ')
